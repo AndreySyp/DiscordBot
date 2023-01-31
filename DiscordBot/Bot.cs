@@ -25,6 +25,7 @@ public class Bot
             Token = configJson.Token,
             TokenType = TokenType.Bot,
             AutoReconnect = true,
+            Intents = DiscordIntents.All,
         });
 
         Client.UseInteractivity(new InteractivityConfiguration()
@@ -39,6 +40,9 @@ public class Bot
             EnableDms = true,
             EnableDefaultHelp = false,
         };
+
+        Commands = Client.UseCommandsNext(commandsConfig);
+        Commands.RegisterCommands<Commands>();
 
         await Client.ConnectAsync();
         await Task.Delay(-1);
